@@ -37,7 +37,8 @@ router.post('/sign-up', async function (req, res, next) {
       email: req.body.email,
       password: SHA256(req.body.password + salt).toString(encBase64),
       salt: salt,
-      token: uid2(32)
+      token: uid2(32),
+      lang: req.body.lang
     });
 
     user = await newUser.save();
