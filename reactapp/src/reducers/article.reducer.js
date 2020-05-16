@@ -1,11 +1,14 @@
 export default function (wishlist = [], action) {
 
     let wishlistCopy = [...wishlist];
-
+    
     switch (action.type) {
+        case 'saveArticle':
+            return action.articles;
+
         case 'addArticle':
             let findArticle = wishlist.every(e => e.title !== action.articleLike.title);
-            if (findArticle === true) {
+            if (!findArticle) {
                 wishlistCopy.push(action.articleLike);
             };
             return wishlistCopy;

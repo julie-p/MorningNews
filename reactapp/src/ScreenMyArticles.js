@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import './App.css';
 import { Card, Icon, Modal } from 'antd';
@@ -11,6 +11,29 @@ function ScreenMyArticles(props) {
   const [ title, setTitle ] = useState('');
   const [ content, setContent ] = useState('');
   const [ visible, setVisible ] = useState(false);
+  const [ language, setLanguage ] = useState('');
+
+  useEffect(() => {
+
+    const findArticlesInWishlist = async() => {
+      const wishlist = await fetch(`/wishlist-article?lang=${language}&token=${props.token}`);
+      const wishlistResponse = await wishlist.json();
+
+      props.saveArticle(wishlistResponse.articles);
+
+    };
+    findArticlesInWishlist();
+  }, [language]);
+
+  const deleteArticle = async (title) => {
+    props.deleteFromWishlist(title);
+
+    const deleteDB = await fetch('/wishlist-article', {
+      method: 'DELETE',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      body: `title=${title}&token=${props.token}`
+    });
+  };
 
   const showModal = (title, content) => {
     setVisible(true);
@@ -27,7 +50,7 @@ function ScreenMyArticles(props) {
   };
 
   let emptyArticleList;
-  if (props.wishlist == 0) {
+  if (props.myArticles == 0) {
     emptyArticleList = <div style={{marginTop:'100px', fontWeight:'bold', fontStyle:'italic', color:'#DC143C'}}>No Articles Found.</div>
   };
 
@@ -40,7 +63,7 @@ function ScreenMyArticles(props) {
 
             <div className="Card">
               {emptyArticleList}
-              {props.wishlist.map((article, i) => {
+              {props.myArticles.map((article, i) => {
                 return (
             
                     <div  
@@ -62,7 +85,7 @@ function ScreenMyArticles(props) {
                         
                         actions={[
                           <Icon type="read" key="ellipsis2" onClick={() => showModal(article.title, article.content)}/>,
-                          <Icon type="delete" key="ellipsis" onClick={() => props.deleteFromWishlist(article.title)}/>
+                          <Icon type="delete" key="ellipsis" onClick={() => deleteArticle(article.title)}/>
                         ]}
                         >
                           
@@ -76,8 +99,8 @@ function ScreenMyArticles(props) {
                       <Modal
                       title={title}
                       visible={visible}
-                      onOk={() => handleOk()}
-                      onCancel={() => handleCancel()}
+                      onOk={handleOk}
+                      onCancel={handleCancel}
                       >
                       <p>{content}</p>
                       </Modal>
@@ -93,7 +116,7 @@ function ScreenMyArticles(props) {
 
 function mapStateToProps(state) {
   return {
-      wishlist: state.wishlist,
+      myArticles: state.wishlist, token: state.token
     }
   };
 
@@ -102,6 +125,10 @@ function mapDispatchToProps(dispatch) {
       deleteFromWishlist: function(title) {
       dispatch({ type: 'deleteArticle',
                  title: title });
+      },
+      saveArticle: function(articles) {
+        dispatch({ type: 'saveArticle',
+                   articles: articles})
       }
     }
   };
