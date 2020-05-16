@@ -8,6 +8,7 @@ const uid2 = require('uid2');
 const SHA256 = require("crypto-js/sha256");
 const encBase64 = require("crypto-js/enc-base64");
 
+//Route pour enregistrer un user
 router.post('/sign-up', async function (req, res, next) {
 
   let error = [];
@@ -52,6 +53,7 @@ router.post('/sign-up', async function (req, res, next) {
   res.json({ result, user, error, token });
 });
 
+//Route pour se connecter - user existant dans la db
 router.post('/sign-in', async function (req, res, next) {
 
   let error = [];
@@ -90,7 +92,7 @@ router.post('/sign-in', async function (req, res, next) {
   res.json({ result, user, error, token });
 });
 
-//Route post article-wishlist
+//Route post wishlist qui enregistre dans la db les articles sélectionnés par l'user
 router.post('/wishlist-article', async function(req, res, next) {
 
   let result = false;
@@ -117,7 +119,7 @@ router.post('/wishlist-article', async function(req, res, next) {
   res.json({result});
 });
 
-//Route delete wishlist-article
+//Route delete wishlist qui supprime de la db les articles de la wishlist
 router.delete('/wishlist-article', async function(req, res, next) {
 
   let result = false;
@@ -135,7 +137,7 @@ router.delete('/wishlist-article', async function(req, res, next) {
   res.json({result});
 });
 
-//Route get wishlist-article
+//Route get wishlist qui récupère de la db les articles de la wishlist de l'user
 router.get('/wishlist-article', async function(req, res, next) {
 
   let articles = [];
@@ -155,7 +157,7 @@ router.get('/wishlist-article', async function(req, res, next) {
   res.json({articles});
 });
 
-//Route get language
+//Route get language qui récupère dans la db la dernière langue sélectionnée par l'user
 router.get('/user-language', async function(req, res, next) {
 
   let lang = null;
@@ -169,7 +171,7 @@ router.get('/user-language', async function(req, res, next) {
   res.json({lang});
 });
 
-//Route post language
+//Route post language qui enregistre dans la db le choix de langue de l'user
 router.post('/user-language', async function(req, res, next) {
 
   let result = false;
