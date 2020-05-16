@@ -20,7 +20,7 @@ function ScreenMyArticles(props) {
       const wishlistResponse = await wishlist.json();
 
       props.saveArticle(wishlistResponse.articles);
-
+      console.log(wishlistResponse.articles)
     };
     findArticlesInWishlist();
   }, [language]);

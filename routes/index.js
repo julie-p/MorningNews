@@ -116,24 +116,6 @@ router.post('/wishlist-article', async function(req, res, next) {
   res.json({result});
 });
 
-//Route get wishlist-article
-router.get('/wishlist-article', async function(req, res, next) {
-
-  let articles = [];
-
-  const user = await userModel.findOne({token: req.query.token});
-
-  if (user != null) {
-    if (req.query.lang !== '') {
-      articles = await articleModel.find({userId: user._id, lang: req.query.lang});
-    } else {
-      articles = await articleModel.find({userId: user._id});
-    }
-  };
-
-  res.json({articles});
-});
-
 //Route delete wishlist-article
 router.delete('/wishlist-article', async function(req, res, next) {
 
@@ -150,6 +132,26 @@ router.delete('/wishlist-article', async function(req, res, next) {
   };
 
   res.json({result});
+});
+
+//Route get wishlist-article
+router.get('/wishlist-article', async function(req, res, next) {
+
+  let articles = [];
+
+  let user = await userModel.findOne({token: req.query.token});
+
+  if (user != null) {
+    if (req.query.lang !== '') {
+      articles = await articleModel.find({userId: user._id, lang: req.query.lang});
+    } else {
+      articles = await articleModel.find({userId: user._id});
+    }
+  };
+
+  console.log(articles);
+  
+  res.json({articles});
 });
 
 //Route get language

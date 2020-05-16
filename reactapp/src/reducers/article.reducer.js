@@ -1,8 +1,9 @@
 export default function (wishlist = [], action) {
 
     let wishlistCopy = [...wishlist];
-    
+
     switch (action.type) {
+        
         case 'saveArticle':
             return action.articles;
 
