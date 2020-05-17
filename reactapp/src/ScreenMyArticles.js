@@ -35,6 +35,10 @@ function ScreenMyArticles(props) {
     });
   };
 
+  const filtreLanguage = (lang) => {
+    setLanguage(lang);
+  };
+
   const showModal = (title, content) => {
     setVisible(true);
     setTitle(title);
@@ -59,7 +63,10 @@ function ScreenMyArticles(props) {
          
             <Nav/>
 
-            <div className="Banner"/>
+            <div style={{justifyContent: 'center', display: 'flex'}} className="Banner">
+              <img style={{width:'60px', margin:'10px',cursor:'pointer'}} src={'/images/fr.png'} onClick={() => filtreLanguage('fr')}/>
+              <img style={{width:'60px', margin:'10px',cursor:'pointer'}} src={'/images/us.png'} onClick={() => filtreLanguage('en')}/>
+            </div>
 
             <div className="Card">
               {emptyArticleList}
