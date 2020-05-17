@@ -57,16 +57,20 @@ function ScreenSource(props) {
     });
   };
 
-  var borderLanguageFr = {width:'60px', margin:'10px',cursor:'pointer'};
+  let borderLanguageFr = {width:'60px', margin:'10px',cursor:'pointer'};
+  let borderLanguageEn = {width:'60px', margin:'10px',cursor:'pointer'};
 
-  if (selectLanguage == 'fr'){
-    borderLanguageFr.border = '1px solid black';
-  };
+  switch (selectLanguage) {
+    case 'fr' :
 
-  var borderLanguageEn = {width:'60px', margin:'10px',cursor:'pointer'}
-
-  if (selectLanguage == 'en'){
-    borderLanguageEn.border = '1px solid black';
+      if (selectLanguage == 'fr'){
+        borderLanguageFr.border = '1px solid black';
+      };
+  
+    case 'en' :
+      if (selectLanguage == 'en'){
+        borderLanguageEn.border = '1px solid black';
+      };
   };
 
   return (
