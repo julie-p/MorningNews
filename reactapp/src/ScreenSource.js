@@ -57,13 +57,28 @@ function ScreenSource(props) {
     });
   };
 
+  let borderLanguageFr = {width: '60px', margin: '10px', cursor: 'pointer'};
+  let borderLanguageEn = {width: '60px', margin: '10px', cursor: 'pointer'};
+
+  switch (selectLanguage) {
+    case 'fr':
+      if (selectLanguage == 'fr') {
+        borderLanguageFr.border = '1px solid black'
+      };
+
+    case 'en' :
+      if (selectLanguage == 'en') {
+        borderLanguageEn.border = '1px solid black';
+      };
+  };
+
   return (
     <div>
         <Nav/>
         {/* Sélection de la langue */}
        <div style={{justifyContent: 'center', display: 'flex'}} className="Banner">
-          <img style={{width: '60px', margin: '10px', cursor: 'pointer'}} src={'/images/fr.png'} onClick={() => updateLang('fr')}/>
-          <img style={{width: '60px', margin: '10px', cursor: 'pointer'}} src={'/images/us.png'} onClick={() => updateLang('en')}/>
+          <img style={borderLanguageFr} src={'/images/fr.png'} onClick={() => updateLang('fr')}/>
+          <img style={borderLanguageEn} src={'/images/us.png'} onClick={() => updateLang('en')}/>
        </div>
 
        <div className="HomeThemes">
