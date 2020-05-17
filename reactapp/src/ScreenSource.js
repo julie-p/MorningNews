@@ -11,6 +11,18 @@ function ScreenSource(props) {
   const [ selectLanguage, setSelectLanguage ] = useState(props.selectLanguage);
 
   useEffect( () => {
+    const findLanguage = async () => {
+      
+      const reqFind = await fetch(`/user-language?token=${props.token}`);
+      const respondeFind = await reqFind.json();
+      setSelectLanguage(respondeFind.lang)
+
+    };
+    findLanguage();
+
+  }, []);
+
+  useEffect( () => {
     const loadData = async () => {
       let lang = 'fr';
       let country = 'fr';
@@ -35,13 +47,24 @@ function ScreenSource(props) {
 
   }, [selectLanguage]);
 
+  const updateLang = async (lang) => {
+    setSelectLanguage(lang);
+
+    const reqLang = await fetch('/user-language', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      body: `lang=${lang}&token=${props.token}`
+    });
+    /* const responseLang = await reqLang.json(); */
+  };
+
   return (
     <div>
         <Nav/>
         {/* Sélection de la langue */}
        <div style={{justifyContent: 'center', display: 'flex'}} className="Banner">
-          <img style={{width: '60px', margin: '10px', cursor: 'pointer'}} src={'/images/fr.png'} onClick={() => setSelectLanguage('fr')}/>
-          <img style={{width: '60px', margin: '10px', cursor: 'pointer'}} src={'/images/us.png'} onClick={() => setSelectLanguage('en')}/>
+          <img style={{width: '60px', margin: '10px', cursor: 'pointer'}} src={'/images/fr.png'} onClick={() => updateLang('fr')}/>
+          <img style={{width: '60px', margin: '10px', cursor: 'pointer'}} src={'/images/us.png'} onClick={() => updateLang('en')}/>
        </div>
 
        <div className="HomeThemes">
@@ -69,7 +92,7 @@ function ScreenSource(props) {
 
 function mapStateToProps(state) {
   return {
-      selectLanguage: state.selectLanguage
+      selectLanguage: state.selectLanguage, token: state.token
     }
   };
 

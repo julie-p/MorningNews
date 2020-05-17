@@ -32,7 +32,7 @@ function ScreenArticlesBySource(props) {
     const saveResponse = await fetch('/wishlist-article', {
       method: 'POST',
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      body: `name=${article.title}&content=${article.content}&desc=${article.description}&lang=${props.selectedLang}&img=${article.urlToImage}&token=${props.token}`
+      body: `name=${article.title}&content=${article.content}&desc=${article.description}&lang=${props.selectLanguage}&img=${article.urlToImage}&token=${props.token}`
     })
   };  
 

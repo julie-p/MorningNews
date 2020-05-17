@@ -145,14 +145,12 @@ router.get('/wishlist-article', async function(req, res, next) {
   let user = await userModel.findOne({token: req.query.token});
 
   if (user != null) {
-    if (req.query.lang !== '') {
+    /* if (req.query.lang !== '') {
       articles = await articleModel.find({userId: user._id, lang: req.query.lang});
-    } else {
+    } else { */
       articles = await articleModel.find({userId: user._id});
-    }
+    /* } */
   };
-
-  console.log(articles);
   
   res.json({articles});
 });
@@ -168,6 +166,8 @@ router.get('/user-language', async function(req, res, next) {
     lang = user.lang;
   };
 
+  console.log(lang);
+
   res.json({lang});
 });
 
@@ -181,6 +181,8 @@ router.post('/user-language', async function(req, res, next) {
   if (user != null) {
     result = true;
   };
+
+  console.log(result);
 
   res.json({result});
 });
