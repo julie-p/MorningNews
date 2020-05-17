@@ -55,7 +55,6 @@ function ScreenSource(props) {
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       body: `lang=${lang}&token=${props.token}`
     });
-    /* const responseLang = await reqLang.json(); */
   };
 
   return (
