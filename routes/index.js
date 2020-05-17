@@ -162,9 +162,9 @@ router.get('/user-language', async function(req, res, next) {
 
   const user = await userModel.findOne({token: req.query.token});
 
-  if (user != null) {
+  /* if (user != null) {
     lang = user.lang;
-  };
+  }; */
 
   console.log(lang);
 
