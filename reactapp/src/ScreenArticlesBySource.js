@@ -98,8 +98,6 @@ function ScreenArticlesBySource(props) {
                 <p>{content}</p>
                 </Modal>
                 
-              
-
               </div>
             ))};
 

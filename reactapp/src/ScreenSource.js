@@ -30,11 +30,9 @@ function ScreenSource(props) {
       switch (selectLanguage) {
 
         case 'en' :
-          if (selectLanguage == 'en') {
             lang = 'en';
             country = 'us';
             break;
-          };
       };
       props.changeLanguage(selectLanguage);
       
